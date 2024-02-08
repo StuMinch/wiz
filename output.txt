@@ -1,0 +1,37 @@
+https://app.saucelabs.com/tests/40af8e9dfb28427f8d8b8d1cb5b177d5
+
+
+Purchase subscription testing through the Google Play Store
+Secondary app Google Play Labs to be installed and signed in to the Google Account
+
+
+Exercise 1.
+
+
+https://play.openpolicyagent.org/p/k0QlNnpRpQ
+
+package main
+
+default match = false
+
+# Match the value of HttpTokens
+match {
+	is_imdsv1_enabled(input)
+}
+
+# Check if HttpTokens is set to "optional"
+is_imdsv1_enabled(inst) {
+	inst.Reservations[_].Instances[_].MetadataOptions.HttpTokens == "optional"
+}
+
+
+
+aws ec2 modify-instance-metadata-options \
+    --instance-id i-0292fc2175988115d \
+    --http-tokens required \
+    --http-endpoint enabled
+
+
+
+Exercise 2.
+
